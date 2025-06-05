@@ -1,3 +1,16 @@
 title: Rishi Sharma
-description: My name is Rishi Sharma and I am a student at the University of Washington
+email: rishishar10@gmail.com
+description: Computer Science Student @ University of Washington | Incoming Intern @ Amazon
+baseurl: ""
+url: https://rishishar10@github.io
+
+
 theme: minima
+
+header_pages:
+  - about.md
+  - projects.md
+  - resume.md 
+
+exclude: 
+  - README.md
