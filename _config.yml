@@ -2,11 +2,14 @@ title: Rishi Sharma
 email: rishishar10@gmail.com
 description: Computer Science Student @ University of Washington | Incoming Intern @ Amazon
 baseurl: ""
-url: https://rishishar10@github.io
+url: https://rishishar10.github.io
 
 linkedin_username: 1rishisharma
 
 theme: minima
+
+include:
+  - _includes/head.html
 
 header_pages:
   - about.md
