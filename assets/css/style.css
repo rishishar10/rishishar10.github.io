@@ -1,0 +1,92 @@
+---
+---
+
+/* Header customization */
+.site-header {
+  border-top: 5px solid #424242;
+  border-bottom: 1px solid #e8e8e8;
+  background-color: #fdfdfd;
+}
+
+/* Main content styling */
+.site-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #424242;
+}
+
+/* Navigation styling */
+.site-nav .page-link {
+  color: #424242;
+  font-weight: 500;
+}
+
+.site-nav .page-link:hover {
+  color: #2a7ae4;
+}
+
+/* Content styling */
+.post-content h1,
+.post-content h2,
+.post-content h3 {
+  color: #333;
+}
+
+/* Project cards styling */
+.project-card {
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fafafa;
+}
+
+.project-card h3 {
+  margin-top: 0;
+  color: #2a7ae4;
+}
+
+/* Button styling */
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #2a7ae4;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.btn:hover {
+  background-color: #1e5bb8;
+  color: white;
+}
+
+/* Skills list styling */
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.skill-tag {
+  background-color: #e8f4fd;
+  color: #2a7ae4;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  border: 1px solid #2a7ae4;
+}
+
+/* Responsive design */
+@media screen and (max-width: 600px) {
+  .site-title {
+    font-size: 22px;
+  }
+  
+  .project-card {
+    padding: 15px;
+  }
+}
