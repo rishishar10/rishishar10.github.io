@@ -3,8 +3,385 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rishi Sharma - Portfolio</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Rishi Sharma - AI Engineer Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #4c63d2;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #4c63d2;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.1)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0)"/></radialGradient></defs><circle cx="200" cy="200" r="3" fill="white" opacity="0.6"><animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/></circle><circle cx="800" cy="300" r="2" fill="white" opacity="0.4"><animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite"/></circle><circle cx="600" cy="700" r="4" fill="white" opacity="0.5"><animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite"/></circle></svg>') no-repeat center center;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .tagline {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: white;
+            color: #4c63d2;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            padding: 4rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #4c63d2;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .ai-focus-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: #f8f9ff;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #4c63d2;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-category h3 {
+            color: #4c63d2;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #4c63d2, #764ba2);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 3rem;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: -2.5rem;
+            top: 0;
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, #4c63d2, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #4c63d2;
+        }
+
+        .timeline-content h3 {
+            color: #4c63d2;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .company {
+            color: #666;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-content p {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* Focus Card */
+        .focus-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .focus-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9ff;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            color: #4c63d2;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item h3 {
+            color: #4c63d2;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #4c63d2;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #4c63d2;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .tagline {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -16,7 +393,8 @@
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#experience">Experience</a></li>
-                <li><a href="#focus">Focus</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -26,13 +404,14 @@
     <section class="hero">
         <div class="hero-content">
             <h1>Rishi Sharma</h1>
-            <p class="hero-subtitle">Software Developer & Problem Solver</p>
+            <p class="hero-subtitle">Computer Science Student & Software Engineer</p>
             <div class="tagline">
-                <span class="tag">Full Stack Developer</span>
-                <span class="tag">AI Enthusiast</span>
-                <span class="tag">Tech Innovator</span>
+                <span class="tag">💻 Amazon SDE Intern</span>
+                <span class="tag">🎓 UW CSE Student</span>
+                <span class="tag">🚀 Prev @ Amazon, T-Mobile</span>
+                <span class="tag">🤖 Passionate about AI/ML</span>
             </div>
-            <a href="#about" class="cta-button">Learn More</a>
+            <a href="#about" class="cta-button">View My Work</a>
         </div>
     </section>
 
@@ -44,21 +423,35 @@
                 <h2>About Me</h2>
                 <div class="about-grid">
                     <div class="about-text">
-                        <p>I'm a passionate software developer with a strong foundation in modern web technologies and a keen interest in artificial intelligence. I enjoy building scalable applications and solving complex problems through innovative solutions.</p>
-                        <p>With experience in both frontend and backend development, I strive to create seamless user experiences while maintaining robust, efficient codebases.</p>
+                        <p>I'm a <strong>Computer Science</strong> student at the University of Washington's Paul G. Allen School, graduating in 2026, with a <strong>minor in Neural Computation and Engineering</strong>. I'm passionate about building innovative software solutions, researching encryption technologies, and leading technical teams.</p>
+                        
+                        <div class="ai-focus-highlight">
+                            <h3>🧪 Research & Development Focus</h3>
+                            <p>My interests span from creating projects utilizing AI/ML technologies, to creating simpler applications for people around me to use.</p>
+                        </div>
+
+                        <p>With hands-on experience as a Software Engineer Intern at Amazon and T-Mobile, I specialize in full-stack development, and building scalable applications. Currently, I am working on a project that enables models to retain information more effectively over the long term as I enter my internship at Amazon.</p>
+                        
+                        <p><strong>When I'm not coding:</strong> I'm a huge basketball fan and love going to the gym regularly. I also love watching comedies and following many sports such as football, cricket, and basketball.</p>
+                        
+                        <p><strong>Contact:</strong> 425-598-4686 | rishishar10@gmail.com</p>
                     </div>
                     <div class="skills-grid">
                         <div class="skill-category">
-                            <h3>Frontend</h3>
-                            <p>React, JavaScript, HTML5, CSS3, TypeScript</p>
+                            <h3>💻 Programming Languages</h3>
+                            <p>Python, Java, Kotlin, JavaScript, SQL, HTML/CSS, Dart</p>
                         </div>
                         <div class="skill-category">
-                            <h3>Backend</h3>
-                            <p>Node.js, Python, Express, MongoDB, PostgreSQL</p>
+                            <h3>🧠 ML/AI Technologies</h3>
+                            <p>TensorFlow Lite, OpenCV, NumPy, Machine Learning, Computer Vision, Neural Networks</p>
                         </div>
                         <div class="skill-category">
-                            <h3>Tools & Others</h3>
-                            <p>Git, Docker, AWS, Linux, Agile Development</p>
+                            <h3>🔧 Frameworks & Tools</h3>
+                            <p>React.js, Spring Boot, Node.js, Flutter, Android SDK, Git</p>
+                        </div>
+                        <div class="skill-category">
+                            <h3>☁️ Cloud & Databases</h3>
+                            <p>AWS, Microsoft Azure, Firebase, MySQL, SQLite, Amazon DocumentDB</p>
                         </div>
                     </div>
                 </div>
@@ -66,37 +459,97 @@
 
             <!-- Experience Section -->
             <section id="experience" class="section">
-                <h2>Experience</h2>
+                <h2>Professional Experience</h2>
                 <div class="timeline">
                     <div class="timeline-item">
                         <div class="timeline-content">
-                            <h3>Software Developer</h3>
-                            <div class="company">Current Role</div>
-                            <p>Working on full-stack applications using modern technologies. Focus on creating efficient, scalable solutions and maintaining high code quality standards.</p>
+                            <h3>Software Engineer Intern</h3>
+                            <div class="company">Amazon • Seattle, WA • Jun 2024 – Sep 2024</div>
+                            <p>• Developed advanced <strong>palm authentication feature</strong> using Amazon One APIs, implementing computer vision for secure biometric authentication on Alexa devices</p>
+                            <p>• Enhanced security for high-level transactions while simplifying user experience, replacing traditional OTP methods with biometric authentication</p>
+                            <p>• Served as full-stack developer on Alexa team using Kotlin and Java, leveraging OkHttp library for API integration</p>
+                            <p>• Applied <strong>computer vision techniques</strong> for real-time palm detection and verification systems</p>
                         </div>
                         <div class="timeline-icon">
-                            <i class="fas fa-code"></i>
+                            <i class="fas fa-brain"></i>
                         </div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-content">
-                            <h3>Previous Experience</h3>
-                            <div class="company">Various Projects</div>
-                            <p>Developed multiple web applications, worked with diverse tech stacks, and collaborated with cross-functional teams to deliver high-quality software solutions.</p>
+                            <h3>Research Assistant</h3>
+                            <div class="company">HPDIC Lab, UW • Seattle, WA • Jan 2024 – Jun 2024</div>
+                            <p>• Researched improvements to <strong>homomorphic encryption</strong> performance in cloud-based outsourced databases</p>
+                            <p>• Analyzed security improvements between homomorphic and traditional encryption methods</p>
+                            <p>• Designed novel optimizations through innovative algorithms addressing performance limitations</p>
+                            <p>• Applied computational techniques to enhance encryption efficiency in cloud computing environments</p>
                         </div>
                         <div class="timeline-icon">
-                            <i class="fas fa-laptop-code"></i>
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Software Engineer Intern</h3>
+                            <div class="company">T-Mobile • Bellevue, WA • Jun 2023 – Sep 2023</div>
+                            <p>• Collaborated on microchip development for Apple Watches to enable standalone device functionality</p>
+                            <p>• Developed T-Mobile MONEY website improving customer banking experience and navigation</p>
+                            <p>• Worked with SpringBoot and REST APIs for backend development</p>
+                        </div>
+                        <div class="timeline-icon">
+                            <i class="fas fa-mobile-alt"></i>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Current Focus Section -->
-            <section id="focus" class="section">
-                <h2>Current Focus</h2>
+            <!-- Projects Section -->
+            <section id="projects" class="section">
+                <h2>Projects</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>🚀 SiteSync - Work Management Platform</h3>
+                        <p><strong>Tech Stack:</strong> React.js, Node.js, GoJS, AWS, Amazon DocumentDB</p>
+                        <p>• Founded and led technical department of 10-15 person startup developing B2B work order management platform</p>
+                        <p>• Created web application enabling businesses to efficiently manage subcontractor work orders</p>
+                        <p>• Led team of 5-10 developers, delegating tasks based on strengths and ensuring milestone completion</p>
+                        <p>• Implemented advanced data visualization and workflow management features</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>📱 BizBasics Mobile App</h3>
+                        <p><strong>Tech Stack:</strong> Flutter, Dart, Java, Firebase, TensorFlow Lite, OpenCV</p>
+                        <p>• Developed mobile application digitalizing tutoring business paperwork and organization systems</p>
+                        <p>• Implemented <strong>computer vision features</strong> using OpenCV for automated document processing</p>
+                        <p>• Applied <strong>machine learning models</strong> with TensorFlow Lite for on-device processing and data analysis</p>
+                        <p>• Utilized advanced data structures and algorithms for intelligent search and categorization features</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>📈 Stock Market Predictor</h3>
+                        <p><strong>Tech Stack:</strong> Python, PyTorch, NumPy, Pandas</p>
+                        <p>• Built and compared deep learning models (MLP, ResCNN, LSTM+Attention) for next-day stock movement prediction</p>
+                        <p>• Engineered time-series features using RSI, MACD, and Bollinger Bands; improved accuracy through residual and attention-based architectures</p>
+                        <p>• Tuned hyperparameters and applied regularization to improve generalization across SPY, AAPL, and JPM datasets</p>
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section id="education" class="section">
+                <h2>Education</h2>
                 <div class="focus-card">
-                    <h3>Building the Future</h3>
-                    <p>Currently focused on expanding my expertise in AI/ML technologies while continuing to develop innovative web applications that solve real-world problems.</p>
+                    <h3>🎓 University of Washington</h3>
+                    <p><strong>Paul G. Allen School of Computer Science</strong></p>
+                    <p>Bachelor of Science in Computer Science • <strong>Minor in Neural Computation and Engineering</strong></p>
+                    <p>Seattle, WA • Sep 2022 - Jun 2026</p>
+                    <br>
+                    <p><strong>Relevant Coursework:</strong></p>
+                    <p>• <strong>Machine Learning & Deep Learning</strong> - Advanced algorithms, neural networks, deep learning architectures</p>
+                    <p>• <strong>Neuroscience</strong> - Brain function, neural systems, computational neuroscience</p>
+                    <p>• <strong>Computer Security</strong> - Cryptographic systems, security protocols, threat analysis</p>
+                    <p>• <strong>Data Structures & Algorithms (Java)</strong> - Optimization, algorithmic complexity</p>
+                    <p>• <strong>Probability & Statistics in CS (Python)</strong> - Statistical foundations, data analysis</p>
+                    <p>• <strong>Data Management (MySQL, Azure SQL)</strong> - Database systems, data architecture</p>
+                    <p>• Linear Algebra, Discrete Mathematics, Memory & Low-Level Languages (Assembly/C)</p>
                 </div>
             </section>
 
@@ -107,17 +560,26 @@
                     <div class="contact-item">
                         <i class="fab fa-github"></i>
                         <h3>GitHub</h3>
-                        <a href="https://github.com/rishishar10">@rishishar10</a>
+                        <a href="https://github.com/rishishar10" target="_blank">@rishishar10</a>
+                        <p>Code & Projects</p>
                     </div>
                     <div class="contact-item">
                         <i class="fab fa-linkedin"></i>
                         <h3>LinkedIn</h3>
-                        <a href="#">Connect with me</a>
+                        <a href="https://linkedin.com/in/rishisharma" target="_blank">linkedin.com/in/rishisharma</a>
+                        <p>Professional Network</p>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
                         <h3>Email</h3>
-                        <a href="mailto:your.email@example.com">your.email@example.com</a>
+                        <a href="mailto:rishishar10@gmail.com">rishishar10@gmail.com</a>
+                        <p>Let's Connect</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <h3>Phone</h3>
+                        <a href="tel:425-598-4686">425-598-4686</a>
+                        <p>Direct Contact</p>
                     </div>
                 </div>
             </section>
@@ -130,9 +592,11 @@
             <div class="footer-links">
                 <a href="#about">About</a>
                 <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#education">Education</a>
                 <a href="#contact">Contact</a>
             </div>
-            <p>&copy; 2025 Rishi Sharma. All rights reserved.</p>
+            <p>&copy; 2025 Rishi Sharma - Computer Science Student & Software Engineer. All rights reserved.</p>
         </div>
     </footer>
 
@@ -174,6 +638,15 @@
             } else {
                 nav.style.background = 'rgba(255, 255, 255, 0.95)';
             }
+        });
+
+        // Add floating animation to hero icons
+        document.addEventListener('DOMContentLoaded', function() {
+            const tags = document.querySelectorAll('.tag');
+            tags.forEach((tag, index) => {
+                tag.style.animationDelay = `${index * 0.2}s`;
+                tag.style.animation = 'float 3s ease-in-out infinite';
+            });
         });
     </script>
 </body>
